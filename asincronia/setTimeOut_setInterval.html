@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	
+
+	<script type="text/javascript">
+		/* **********     Temporizadores (setTimeout & setInterval)     ********** */
+
+    console.log("inicio");
+
+   /*setTimeout(() => {
+      console.log("Ejecutando un setTimeout, esto se ejecuta una sóla vez");
+    }, 3000);
+
+    setInterval(() => {
+      console.log("Ejecutando un setInterval, esto se ejecuta indefinidaente cada cierto intervalo de tiempo");
+    }, 1000); */
+
+    /*let temporizador = setTimeout(() => {
+      console.log(new Date().toLocaleTimeString());
+    }, 1000);
+
+    clearTimeout(temporizador); //CANCELA EL SETTIMEOUT
+    console.log("después del clearTimeout",temporizador);*/ 
+
+    let temporizador = setInterval(() => {
+      console.log(new Date().toLocaleTimeString());
+    }, 1000);
+
+    clearInterval(temporizador); //CANCELA EL SETINTERVAL
+    console.log("después del clearInterval"); 
+	</script>
+</body>
+</html>

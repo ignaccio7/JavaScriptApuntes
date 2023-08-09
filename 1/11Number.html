@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Number</title>
+</head>
+<body>
+	<script>
+		//CAMBIO DE BASE ENTRE NUMEROS: toString()
+		var base10=128;
+		alert(base10+" en base 2 es "+base10.toString(2));
+		alert(base10+" en base 8 es "+base10.toString(8));
+		alert(base10+" en base 16 es "+base10.toString(16));
+
+		//INFINITO Y INFINITO
+		var inf = 2;
+		while(inf != Infinity){
+			//alert(inf);
+			inf=inf*inf; //inf *= inf;
+		}
+
+		var div1 = 2, div2=0;
+		alert("Division 2/0="+2/0);
+		alert("Division 2/0="+(-2/0));
+		alert("Typeof: "+(div1/div2));
+
+		//NOT A NUMBER: NaN
+		var atipico = 100/"casa";
+		var atipico2 = 100/"10";
+		alert("100/'casa'="+atipico);
+		alert("100/'10'="+atipico2);
+
+		alert("Es un NaN atipico? "+isNaN(atipico));
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>arreglos</title>
+</head>
+<body>
+	<script>
+		
+		var amigos = ["jose","pepe","jazmin"];
+
+		amigos[0] = "arturo";
+
+		//permite agregar elementos al final de un arreglo
+		amigos.push("luis","alvaro","oscar")
+
+		//permite eliminar el ultimo elemento del arreglo
+		amigos.pop();
+
+		//document.write(amigos[0]);
+		//document.write("tienes : "+amigos.length+" amigos");
+
+		//para concatenar arreglos
+		var amigos2 = ["nestor","boris"];
+
+		var amigos3 = amigos.concat(amigos2);
+		//con el join separamos los elementos del arreglo por el caracter que pongamos
+		//document.write(amigos3.join(" : "));
+
+		//para ordenar , para ordenar al reves es "reverse()"
+		var ordenado = amigos3.sort();
+		document.write(ordenado.join(" : "));
+
+
+	</script>
+</body>
+</html>

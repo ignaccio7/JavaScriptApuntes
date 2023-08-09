@@ -1,0 +1,92 @@
+/***************     Reset CSS *********************/
+:root {
+	--main-font: sans-serif;
+	--font-size: 16px;
+	--main-color: #40BFE4;
+	--second-color: #222;
+	--second-light-color:#323232;
+	--yellow-color: #F7DF1E;
+	--red-light-color:#D24545;
+	--main-modal-color: rgba(64,191,228,0.80);
+	--second-modal-color: rgba(34,34,34,0.65);
+	--container-width: 1200px;
+}
+
+html{
+	box-sizing: border-box;
+	font-family: var(--main-font);
+	font-size: var(--font-size);
+	scroll-behavior: smooth;
+}
+
+*,
+*::after,
+*::before{
+	box-sizing: inherit;	
+}
+
+body{
+	margin: 0;
+	height: auto;
+}
+
+img{
+	max-width: 100%;
+	height: auto;
+}
+
+.seccion{
+	width: 100%;
+	min-height: 100vh;
+}
+	
+header{
+	text-align: center;
+	background-color: var(--yellow-color);
+	color: var(--red-light-color);
+	font-size: 2rem;
+	font-weight: bold;
+	padding: 10px;
+}
+
+
+/********************  Cuenta regresiva  *****************************/
+
+
+/********************  Deteccion de red *****************************/
+.offline,
+.online {
+	width: 100%;
+	padding: 20px;
+	text-align: center;
+	font-size: 1.5rem;
+	font-weight: 600;
+	background-color: #4CB44E;
+	color: white;
+	position: fixed;
+	top: 0;
+	z-index: 998;
+}
+
+.offline{
+	background-color: #D74747;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	
+	<script type="text/javascript">
+		
+		function cuadradoPromise(value){
+			if(typeof value !== "number") return Promise.reject(`El valor ingresado "" ${value} " no es un numero`);
+			return new Promise((resolve,reject)=>{
+				setTimeout(()=>{					
+					resolve({
+						value,
+						result:value*value
+					});
+				},0|Math.random()*1000);	
+			});
+		}
+
+		cuadradoPromise(0)
+		.then((obj)=>{
+			console.log("Inicia Promesa");
+			console.log(`Promise:${obj.value} - ${obj.result}`);
+			return cuadradoPromise(1);
+		})
+		.then((obj)=>{
+			console.log(`Promise:${obj.value} - ${obj.result}`);
+			return cuadradoPromise(2);
+		})
+		.then((obj)=>{
+			console.log(`Promise:${obj.value} - ${obj.result}`);
+			//return cuadradoPromise(3);
+			return cuadradoPromise("a");			
+		})
+		.then((obj)=>{
+			console.log(`Promise:${obj.value} - ${obj.result}`);
+			return cuadradoPromise(4);						
+		})
+		.then((obj)=>{
+			console.log(`Promise:${obj.value} - ${obj.result}`);
+			console.log("Finaliza Promise");
+		})
+		.catch(err => console.error(err))
+
+	</script>
+</body>
+</html>

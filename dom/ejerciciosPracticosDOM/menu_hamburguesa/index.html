@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Menu Hamburguesa</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hamburgers/1.2.1/hamburgers.css">
+	<link rel="stylesheet" type="text/css" href="estilos.css">
+</head>
+<body>
+	<header class="header">
+		<h1>Menu de Hamburguesa</h1>
+	</header>
+
+	<!--  para el menu de hamburguesa https://jonsuh.com/hamburgers/#usage
+	para sacar su cdn https://cdnjs.com/libraries/hamburgers en esa pagina buscamos hamburguer y la copiamos -->
+
+	<button class="panel-btn hamburger hamburger--emphatic" type="button">
+	  <span class="hamburger-box">
+	    <span class="hamburger-inner"></span>
+	  </span>
+	</button>
+
+	<aside class="panel">
+		<nav class="menu">
+			<!--  a[href="#seccion$"]*5{Seccion $}	--->
+			<a class="aaaaaa" href="#seccion1">Seccion 1</a>
+			<a href="#seccion2">Seccion 2</a>
+			<a href="#seccion3">Seccion 3</a>
+			<a href="#seccion4">Seccion 4</a>
+			<a href="#seccion5">Seccion 5</a>
+		</nav>
+	</aside>
+
+	<!---	section#seccion$.section*5>h1{Seccion $}	-->
+	<main>
+		<section id="seccion1" class="section">
+			<h1>Seccion 1</h1>
+		</section>
+		<section id="seccion2" class="section">
+			<h1>Seccion 2</h1>
+		</section>
+		<section id="seccion3" class="section">
+			<h1>Seccion 3</h1>
+		</section>
+		<section id="seccion4" class="section">
+			<h1>Seccion 4</h1>
+		</section>
+		<section id="seccion5" class="section">
+			<h1>Seccion 5</h1>
+		</section>
+	</main>
+
+	<!-- le colocamos type module ya que estaremos importando archivos para practicar  -->
+	<script src="main.js" type="module"></script>
+
+</body>
+</html>

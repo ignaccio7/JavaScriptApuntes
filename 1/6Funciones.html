@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Funciones</title>
+</head>
+<body>
+	<h1>Funciones</h1>
+	<script>
+		//function nombre_funcion (parametros separados por comas) {....}
+
+		//FUNCION NORMAL
+		function producto(a,b){
+			return a*b;
+		}
+
+		var res_producto = producto(3,4);
+		alert(res_producto);
+		alert(producto(5,6));
+
+		//FUNCION ANONIMA es una funcion que no esta definida por el nombre
+		var producto = function(a,b) {
+			return a*b;
+		}
+		var resultado=producto(3,6);
+		alert(resultado);
+
+		//EL CONSTRUCTOR FUNCION()
+		var miFuncion = new Function("a","b","return a*b");
+		var res2 = miFuncion(5,7);
+		alert(res2);
+
+		//QUE PASA SI A UNA FUNCION NO LE ENVIAMOS LOS PARAMETROS QUE DEFINIMOS A UN PRINCIPIO
+		function suma (a,b){
+			if (b==undefined) {
+				b=0;
+			}
+			return a+b;
+		}
+		var resultado_suma = suma(4);
+		alert(resultado_suma);
+
+		//QUE PASA SI TENEMOS UNA FUNCION DECLARADA SIN ARGUMENTOS Y LE ENVIAMOS MUCHOS
+		function valores (){
+			alert("el numero de argumentos es :"+arguments.length); //te devuelve la longitud de los argumentos ingresados
+			for (var i = 0; i < arguments.length; i++) {
+				alert("Argumento "+i+"="+arguments[i]);
+			}
+		}
+
+		valores(4,6,8,2,7,5);
+
+	</script>
+</body>
+</html>

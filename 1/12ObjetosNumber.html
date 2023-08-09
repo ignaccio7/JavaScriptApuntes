@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Objetos Number</title>
+</head>
+<body>
+	<script>
+		//NUMEROS COMO OBJETOS
+		/*
+		var num = 123;
+		var num2 = new Number(123);
+		var num3 = new Number(123);
+
+		alert("num "+ typeof(num)); // Devuelve Number
+		alert("num2 "+ typeof(num2)); // Devuelve Object
+		alert("num == num2 : "+(num==num2)); // true
+		alert("num === num2 : "+(num===num2)); // false
+		alert("num2 === num3 : "+(num2===num3)); // false
+		*/
+
+		//METODOS
+		//toFixed(<num decimales>) cadena con el numero especifico de decimales indicado
+		var x = 9.876;
+		alert(x.toFixed(0));
+		alert(x.toFixed(2));
+		alert(x.toFixed(6));
+
+		//toPrecision(<num cifras>) cadena con el numero especifico de cifras indicado
+		var y = 9.876;
+		alert(y.toPrecision());
+		alert(y.toPrecision(2));
+		alert(y.toPrecision(6));
+
+		//toExponential: cadena con el numero redondeado a notacion cientifica
+		var z=123456789;
+		alert(z.toExponential(2));
+
+		//toString devuelve la cadena de un numero
+		var j=123;
+		alert(j.toString());
+		alert((123).toString());
+		alert((123+7).toString());
+
+		//METODOS PARA CONVERTIR VARIABLES EN NUMEROS
+		//Number() devuelve el valor numerico de una variable
+		alert(Number(true)); // Devueve 1
+		alert(Number(false)); // Devueve 0
+		alert(Number(new Date())); // Devueve el numero de milisegundos desde el dia 1/1/1970
+		alert(Number("10")); // Devueve el numero de la cadena
+		alert(Number("casa")); // Devueve NaN
+
+		//parseInt() / parseFloat()
+		alert(parseInt("10.6")); //devuelve el NUMERO
+		alert(parseInt("10 20")); // Devueve el primer numero
+		alert(parseInt("10 casa")); // Devueve el primer numero
+		alert(parseInt("casa 10")); //Devuelve NaN
+
+	</script>
+</body>
+</html>

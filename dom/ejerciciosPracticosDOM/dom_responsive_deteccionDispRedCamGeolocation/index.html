@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>DOM responsive</title>
+	<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+	<header>
+		Dom responsive
+	</header>
+	<main>
+		<section class="seccion">
+			<h1>Responsive con javascript</h1>
+			<div id="youtube"></div>
+			<div id="gmaps"></div>
+
+		</section>
+		<section class="seccion">
+			<h1>Prueba responsive de algun sitio</h1>
+			<div class="container">
+				<h3>Introduce los datos del sitio</h3>
+				<form id="formResponsive">
+					<input name="url" type="url" placeholder="URL" required> <br>
+					<input name="ancho" type="text" placeholder="Ancho" required> <br>
+					<input name="alto" type="text" placeholder="Alto" required> <br>
+					<input name="probar" type="submit" value="Probar">
+					<input name="cerrar" type="button" value="Cerrar">
+				</form>
+			</div>
+		</section>
+		<section class="seccion">
+			<h1>Deteccion de dispositivos - User Agent</h1>
+			<div id="idInfoDispositivo"></div>
+		</section>
+		<section class="seccion">
+			<h1>Deteccion de red</h1>
+			<p>Para probar este metodo debemos ir al inspeccionador del navegador luego
+			a Aplication y por ultimo en Services Workers desactivar y activar el check offline y aparecera una notificacion indicando si tenemos o no conexion</p>
+		</section>
+		<section class="seccion">
+			<h1>Deteccion de camara</h1>
+			<video id="webcam"></video>
+		</section>
+		<section class="seccion">
+			<h1>Geolocalizacion</h1>
+			<div id="infoGeolocation"></div>
+		</section>
+		<section class="seccion"></section>
+		<section class="seccion"></section>
+
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+	</main>
+
+	
+
+	<script type="module" src="main.js"></script>
+</body>
+</html>

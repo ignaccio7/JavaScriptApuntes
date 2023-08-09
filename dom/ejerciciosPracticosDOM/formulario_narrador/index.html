@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Formularios Narrador</title>
+	<link rel="stylesheet" type="text/css" href="estilos.css">
+</head>
+<body>
+	<h1>Ejercicios Formulario - Narrador</h1>
+	<section class="formulario">
+		<h2>Validaciones de formulario</h2>
+
+		<!-- PARA VALIDAR CON EXPREG UTILIZAMOS EL ATRIBUTO PATTERN---->
+		<form class="contact-form">
+			<!--este legend es como el titulo del formulario-->
+			<legend>Envianos tus comentarios</legend>
+
+			<!--cuando el input detecte un patron a cumplir el texto aparece cuando incumplimos al querer enviar-->
+			<input type="text" name="name" placeholder="Escribe tu nombre" title="El nombre solo acepta letras y espacios en blanco" pattern="^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$" required>
+
+			<input type="email" name="email" placeholder="Escribe tu correo" title="Email incorrecto" pattern="^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$" required>
+
+			<input type="text" name="subject" placeholder="Asunto a tratar" title="El asunto es requerido" required>
+
+			<!---el textarea no acepta el pattern pero lo agregaremos un data atributte para validar con js-->
+			<textarea name="comments" cols="50" rows="5" placeholder="Escribe tus comentarios" title="No se debe exceder los 255 caracteres" required data-pattern="^.{1,255}$"></textarea>
+
+			<input type="submit" value="enviar">
+
+			<div class="contact-form-loader none">
+				<!--El loader lo sacamos de 
+				https://samherbert.net/svg-loaders/-->
+				<img src="circles.svg" alt="Cargando...">
+			</div>
+
+			<div class="contact-form-response none">
+				<p>Los datos han sido enviados</p>
+			</div>
+			
+		</form>
+
+	</section>
+	<section></section>
+
+	<script type="module" src="main.js"></script>
+</body>
+</html>

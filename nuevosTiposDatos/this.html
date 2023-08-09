@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>this en JavaScript</title>
+</head>
+
+<body>
+  <h1>this en JavaScript</h1>
+  <script>
+    /* **********  this -     ********** */
+    /* console.log(this);
+        console.log(window);
+        console.log(this === window);
+
+        this.nombre = "Contexto Global";
+        console.log(this.nombre);
+
+        function imprimir() {
+          console.log(this.nombre);
+        }
+
+        imprimir();
+
+        const obj = {
+          nombre: "Contexto Objeto",
+          imprimir: function () {
+            console.log(this.nombre);
+          }
+        }
+
+        obj.imprimir();
+
+        const obj2 = {
+          nombre: "Contexto Objeto 2",
+          imprimir
+        }
+
+        obj2.imprimir();
+
+        const obj3 = {
+          nombre: "Contexto Objeto 3",
+          imprimir: () => {
+            console.log(this.nombre);
+          }
+        }
+
+        obj3.imprimir();
+
+        function Persona(nombre) {
+          const that = this;
+          //this.nombre = nombre;
+          that.nombre = nombre;
+
+          //return console.log(this.nombre);
+
+          //return function () {
+          //console.log(this.nombre);
+          //}
+
+          //return () => console.log(this.nombre);
+
+          return function () {
+            console.log(that.nombre);
+          }
+        }
+
+        let jon = new Persona("Jon");
+        jon();*/
+
+
+
+
+
+    /* **********    call, apply, bind     
+
+    CON CALL Y APPLY nosotros decidimos el contexto de cual queremos realizar la funcion
+    y con BIND nosotros podemos cambiar el contexto cuando ejecutamos la funcion 
+     ********** */
+    /*console.log(this);
+    this.lugar = "Contexto Global";
+
+    function saludar(saludo, aQuien) {
+      console.log(`${saludo} ${aQuien} desde el ${this.lugar}`);
+    }
+
+    saludar("Hola", "kEnAi");
+
+    const obj = {
+      lugar: "Contexto Objeto"
+    }
+    console.log("con CALL");
+    saludar.call(obj, "Hola", "Jon");
+    saludar.call(null, "Hola", "Jon");
+    saludar.call(this, "Hola", "Jon");
+    console.log("con APPLY");
+    saludar.apply(obj, ["Adios", "MirCha"]);
+    saludar.apply(null, ["Adios", "MirCha"]);
+    saludar.apply(this, ["Adios", "MirCha"]);
+
+    this.nombre = "Window";
+
+    const persona = {
+      nombre: "Jon",
+      saludar: function () {
+        console.log(`Hola ${this.nombre}`)
+      }
+    }
+
+    persona.saludar();
+
+    const otraPersona = {
+      saludar: persona.saludar.bind(this)
+    }
+
+    console.log("con BIND");
+
+    otraPersona.saludar(); */
+
+
+
+    //CLASES PUBLICAS
+    class PersonaPub {
+      name;
+
+      constructor(name){
+        this.name = name;
+      }
+
+      sayMyName(){
+        return this.name;
+      }
+
+    }
+
+    const miPersona = new PersonaPub("Nestor pub");
+
+    console.log("PERSONA PUBLICA");
+    console.log(miPersona.name); // Nestor
+    console.log(miPersona.sayMyName()); // Nestor
+
+
+    //CLASES PRIVADAS
+    class PersonaPriv {
+      #nombre;
+
+      constructor(name) {
+          this.#nombre = name;
+          this.edad = 10;
+      }
+
+      sayMyName() {
+          return this.#nombre;
+      }
+
+      sayMyName2() {
+          return this.#nombre + " " + this.#returnAMessage();
+      }
+
+      #returnAMessage() {
+          return "Tienes "+this.edad+"años";
+      }
+    }
+
+    const miPersonapr = new PersonaPriv("Nestor priv");
+    console.log("PERSONA PRIVADA");
+    console.log(miPersonapr.sayMyName()); // Nestor priv 
+    console.log(miPersonapr.sayMyName2()); // Nestor priv Tienes 10años
+    console.log(miPersonapr["#returnAMessage"]); // undefined
+    //console.log(miPersonapr.#nombre); // SyntaxError
+    //console.log(miPersonapr.#returnAMessage); // SyntaxError
+    
+    
+    //CLASES PROTEGIDAS
+    class PersonaPro {
+      _name;
+
+      constructor(name) {
+          this._name = name;
+      }
+
+      get name() {
+          return this._name;
+      }
+    }
+
+    console.log("PERSONA PROTEGIDA");
+    let miPersonapro = new PersonaPro("John");
+    console.log(`My name is ${miPersonapro.name}`); // My name is John
+    miPersonapro.name = "Jane"; // Cannot assign to 'name' because it is a read-only property.
+    console.log(miPersonapro.name);
+
+
+
+    /////////////////PROBANDO POLIMORFISMO////////////////////////////
+    ///
+    console.log("========PROBANDO POLIMORFISMO");
+
+    class Shape {
+      area() {
+          return 0;
+      }
+    }
+
+    class Circle extends Shape {
+        constructor (radius) {
+            super(); // needed to use this
+            this.radius = radius;
+        }
+
+        area() {
+            return Math.PI * this.radius * this.radius;
+        }
+    }
+
+    class Rectangle extends Shape {
+        constructor (width, height) {
+            super();
+            this.width = width;
+            this.height = height;
+        }
+
+        area() {
+            return this.width * this.height;
+        }
+    }
+
+    const shape = new Shape();
+    const circle = new Circle(2);
+    const rectangle = new Rectangle(5, 6);
+
+    console.log(shape);
+    console.log(circle);
+    console.log(rectangle);
+
+    console.log(circle.area());
+    console.log(rectangle.area());
+
+
+
+
+    console.log("========PROBANDO HERENCIA");
+
+    class Animal {
+      #color;
+      nombre;
+
+      constructor(nombre,color){
+        this.#color = color;
+        this.nombre = nombre;
+      }
+
+      get getColor(){
+        return this.#color;
+      }
+
+      get getNombre(){
+        return this.nombre;
+      }
+
+      mostrarDatosAnimal(){
+        console.log(`nombre: ${this.nombre} | color : ${this.#color}`);
+      }
+
+    }
+
+    class Perro extends Animal{
+      raza;
+      constructor(raza,nombre,color){
+        super(nombre,color);
+        this.raza=raza;
+      }
+
+      mostrarDatosAnimal(){
+        super.mostrarDatosAnimal();
+        console.log(`raza : ${this.raza}`);
+      }
+
+
+
+    }
+
+    const perro1 = new Perro("granDanes","pepe","negro");
+    console.log(perro1);
+    console.log(perro1.getColor,perro1.getNombre);
+    console.log("-----------------");
+    perro1.mostrarDatosAnimal();
+
+
+
+    
+
+
+
+  </script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

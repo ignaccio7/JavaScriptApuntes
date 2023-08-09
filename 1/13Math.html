@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Math</title>
+</head>
+<body>
+	<script>
+		/*CARACTERISTICAS
+		Permite utilizar Operaciones Matematicas
+		Ej: var pi=Math.PI; var raiz = Math.sqrt(36);
+		*/
+		//PROPIEDADES
+		// E, LN2, LN10, LOG2E, LOG103, PI, SQRT1_2, SQRT2 todas las propiedades en mayuscula
+		var pi=Math.PI;
+		alert("El numero PI vale: "+pi);
+
+		//METODOS MAS COMUNES
+		//random(); Devuelve un numero aleatorio entre 0 y 1
+		alert("Numero aleatorio : "+Math.random());
+
+		//max(<lista de valores>) // //min(<lista de valores>)
+		alert("Maximo de los valores ; "+Math.max(1,5,3,9,6))
+		;
+		alert("Minimo de los valores ; "+Math.min(1,5,3,9,6))
+		;
+
+		//round(<numero>) redondeo de un numero al alza o a la baja
+		var a =4.3;
+		var b =4.7;
+		alert("Redondeo de "+a+"es : " + Math.round(a));
+
+		//ceil(<numero>) redondea siempre al alza 
+		alert("Redondeo de "+a+"es : " + Math.ceil(a));
+
+		//floor(<numero>) redondea siempre a la baja 
+		alert("Redondeo de "+a+"es : " + Math.floor(a));
+
+		//Numero aleatorio entre 0 y 10
+		var aleatorio = Math.floor(Math.random()*11);
+		alert("Aleatorio es :"+aleatorio);
+
+		//pow(<base>,<exponente>); devuelve el valor de la potencia
+		alert("La potencia de 3 al cuadrado es :"+Math.pow(3,2));
+
+		//sqrt(<numero>) devuelve la raiz del numero
+		alert("Raiz de 36 es:" + Math.sqrt(36));
+
+		//abs(<numero>) devuelve el valor absoluto de un numero
+		alert("Valor absoluto de -5 es:"+Math.abs(-5));
+
+		//METODOS TRIGONOMETRICOS
+		// sin, cos, tan, asin, acos, atan
+		// 
+		// 
+		
+
+		 /* console.log(Math);
+	    console.log(Math.PI);
+	    console.log(Math.abs(-7.8));
+	    console.log(Math.ceil(7.2));
+	    console.log(Math.floor(7.8));
+	    console.log(Math.round(7.49));
+	    console.log(Math.sqrt(81));
+	    console.log(Math.pow(2, 5));
+	    console.log(Math.sign(-0.3)); // -1 0 1
+	    console.log(Math.random());
+	    console.log(Math.round(Math.random() * 1000)); */
+
+	</script>
+	
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Estructuras</title>
+</head>
+<body>
+	<script>
+		//SWITCH
+		var nota=1;
+		var mensaje="";
+		switch(nota){
+			case 0:
+				mensaje="suspenso";
+				break;
+			case 1:
+				mensaje="suspenso";
+				break;
+			default:
+				mensaje="ninguno";
+		}
+		alert(mensaje);
+		//BREAK
+		for (var i = 0; i < 10; i++) {
+			if (i==3) {
+				break;
+			}
+			//alert("i="+i);
+		}
+		//CONTINUE
+		for (var i = 0; i < 10; i++) {
+			if (i == 3 || i == 5) {
+				continue;
+			}
+			//alert("i="+i);	
+		}
+		//EJEMPLO DE BREAK CON ETIQUETAS
+		var animales = ["perro","gato","raton"];
+		ver_animales:
+		{
+			alert(animales[0]);
+			alert(animales[1]);
+			break ver_animales;
+			alert(animales[2]);
+		}
+		//EJEMPLO DE CONTINUE CON ETIQUETAS
+		bucle:
+		for (var i = 0; i < 10; i++) {
+			if (i == 3 || i == 5) {
+				continue bucle;
+			}
+			alert("i="+i);	
+		}
+	</script>	
+</body>
+</html>

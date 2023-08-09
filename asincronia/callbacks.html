@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	
+
+	<script>
+		
+		function cuadradoCallback(value, callback){
+			//console.log("Antes");
+			setTimeout(()=>{
+				//value es el valor que le llega y value*value es la funcion que estaria resolviendo
+				callback(value,value*value);
+			},0|Math.random()*1000);
+			//console.log("Despues");
+		}
+
+		cuadradoCallback(0,(value,result)=>{
+			console.log("Inicia Callback");
+			console.log(`Callback ${value} : ${result}`);
+			//console.log("Despues");
+
+			cuadradoCallback(1,(value,result)=>{
+				console.log(`Callback ${value} : ${result}`);
+				cuadradoCallback(2,(value,result)=>{
+					console.log(`Callback ${value} : ${result}`);
+					cuadradoCallback(3,(value,result)=>{
+						console.log(`Callback ${value} : ${result}`);
+						cuadradoCallback(4,(value,result)=>{
+							console.log(`Callback ${value} : ${result}`);
+							console.log("Finaliza Callbacks");
+						})
+					})
+				})
+			})
+
+		})
+
+	</script>
+</body>
+</html>

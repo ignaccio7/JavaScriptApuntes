@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Ejemplos</title>
+</head>
+<body>
+	<h2>SUMA</h2>
+	<form action="">
+		<input type="text" id="numero1">
+		<input type="text" id="numero2">
+		<input type="button" onclick="alert(res());" value="sumar">
+	</form>
+
+	<script>
+		
+		var res =function sumando(){
+		   // para cadenas----- var a = document.getElementById('numero1').value;
+		   // para cadenas----- var b = document.getElementById('numero2').value;
+
+			var a = parseFloat(document.getElementById('numero1').value); 
+			var b = parseFloat(document.getElementById('numero2').value);
+
+		   var c = a+b;
+		   return c;
+		}
+
+	</script>
+</body>
+</html>

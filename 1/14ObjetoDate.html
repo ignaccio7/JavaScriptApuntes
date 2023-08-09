@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Date</title>
+</head>
+<body>
+	<script>
+		/*Creacion de Objetos tipo Date
+		Nota
+		LOS MESES COMIENZAN EN 0, LOS DIAS DE LA SEMANA TAMBIEN, SIENDO EL 0 EL DOMINGO, EL 1 EL LUNES...*/
+
+		//Creacion de Fecha Actual
+		var actual = new Date();
+		alert(actual);
+
+		//Creacion de fecha con cadenas
+		var d1 = new Date("Sun Jan 19 2020 20:48:19 GMT-0400 (hora de Bolivia)"); 
+		var d2 = new Date("January 19, 2019 10:30:00");
+		var d3 = new Date("January 25 2019");
+		var d4 = new Date("Jan 25 2019");
+		//Podemos utilizar comas porque se ignoran
+		//Tiempo Universal Coordinado (UTC).
+		//GMT es la sigla en inglés para "Greenwich Mean Time" (Hora Media de Greenwich)
+		
+
+		console.log(Date()); //Thu Jul 27 2023 12:56:38 GMT-0400 (hora de Bolivia)
+
+	    let fecha = new Date();
+	    console.log(fecha); //Thu Jul 27 2023 12:56:38 GMT-0400 (hora de Bolivia) ese -400 es -4 horas desde la hora 0 desde el meridiano de grenwich
+
+	    //día del mes
+	    console.log(fecha.getDate());
+	    //día de la semana D L M Mi J V S -> 0 1 2 3 4 5 6
+	    console.log(fecha.getDay());
+	    //mes Ene Feb Mar Abr May Jun Jul Ago Sep Oct Nov Dic -> 0 1 2 3 4 5 6 7 8 9 10 11
+	    
+	    console.log(fecha.getMonth());//6
+	    console.log(fecha.getFullYear());//2023
+	    console.log(fecha.getHours());//12
+	    console.log(fecha.getMinutes());//58
+	    console.log(fecha.getSeconds());//21
+	    console.log(fecha.getMilliseconds());//154
+	    console.log(fecha.toString());//Thu Jul 27 2023 12:58:21 GMT-0400 (hora de Bolivia)
+	    console.log(fecha.toDateString());//Thu Jul 27 2023
+	    console.log(fecha.toLocaleString());// 27/7/2023, 12:58:21
+	    console.log(fecha.toLocaleDateString());// 27/7/2023
+	    console.log(fecha.toLocaleTimeString());// 12:58:21
+	    console.log(fecha.getTimezoneOffset());// 240  el uso horario en que nos encontramos varia dependiendo de la region geografica en que nos encontramos - ese 240 esta en minutos y si vemos en Thu Jul 27 2023 12:56:38 GMT-0400 (hora de Bolivia) ahi nos indica que estamos a menos -0400 horas eso mult 6 es 240
+	    console.log(fecha.getUTCDate());// 27 como date nos da el dia del mes pero con UTC nos da el dia en meridiano de grenwich en Londres osea la hora 0
+	    console.log(fecha.getUTCHours());// 16 la hora en Londres
+	    console.log(Date.now());// 1690477101159   cuantos segundos pasaron desde el 1ro enero de 1970 el timestamp
+	    let cumpleNestor = new Date(1998, 1, 26);//
+	    console.log(cumpleNestor);// Thu Feb 26 1998 00:00:00 GMT-0400 (hora de Bolivia)
+
+	    //Date().getTime() nos devuelve la hora pero en milisegundos el timestamp
+		
+		
+
+
+	</script>
+	
+</body>
+</html>

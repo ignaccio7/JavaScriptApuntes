@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Ejercicios Dom</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hamburgers/1.2.1/hamburgers.min.css" integrity="sha512-+mlclc5Q/eHs49oIOCxnnENudJWuNqX5AogCiqRBgKnpoplPzETg2fkgBFVC6WYUVxYYljuxPNG8RE7yBy1K+g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+	<header>
+		<h1>Ejercicios Dom</h1>
+	</header>
+
+	<main>
+		<section id="seccion1" data-scroll-spy>
+			<h1>Filtro por busqueda</h1>
+			<div class="search-box">
+				<label for="search">
+					Dato a buscar :
+				</label>
+				<input type="search" name="search" id="search">
+			</div>
+			<div class="cards">
+				<!--
+		figure*6.card>img[src="https://picsum.photos/id/237/200/300" alt="image"]+figcaption{image}
+				-->
+				<!--
+					https://picsum.photos/
+					https://picsum.photos/images
+				-->
+				<figure class="card">
+					<img src="https://picsum.photos/id/237/200/200" alt="image">
+					<figcaption>Animals</figcaption>
+				</figure>
+				<figure class="card">
+					<img src="https://picsum.photos/id/2/200/200" alt="image">
+					<figcaption>Tech</figcaption>
+				</figure>
+				<figure class="card">
+					<img src="https://picsum.photos/id/10/200/200" alt="image">
+					<figcaption>Nature</figcaption>
+				</figure>
+				<figure class="card">
+					<img src="https://picsum.photos/id/24/200/200" alt="image">
+					<figcaption>Books</figcaption>
+				</figure>
+				<figure class="card">
+					<img src="https://picsum.photos/id/29/200/200" alt="image">
+					<figcaption>Any</figcaption>
+				</figure>
+				<figure class="card">
+					<img src="https://picsum.photos/id/27/200/200" alt="image">
+					<figcaption>People</figcaption>
+				</figure>
+			</div>
+		</section>
+		<section id="seccion2" data-scroll-spy>
+			<h1>Sorteo Digital</h1>
+			<ul class="players">
+				<li class="player">Player 1</li>
+				<li class="player">Player 2</li>
+				<li class="player">Player 3</li>
+				<li class="player">Player 4</li>
+				<li class="player">Player 5</li>
+				<li class="player">Player 6</li>
+				<li class="player">Player 7</li>
+				<li class="player">Player 8</li>
+				<li class="player">Player 9</li>
+				<li class="player">Player 10</li>
+			</ul>
+			<button id="winner-btn">¿Quien sera el ganador?</button>
+		</section>
+
+
+		<section id="seccion3" data-scroll-spy>
+			<h1>Slider Responsivo</h1>
+			<div class="slider">
+				<div class="slider-slides">
+					<div class="slider-slide active">
+						<img src="https://picsum.photos/id/237/1000/1000" alt="random">
+					</div>
+					<div class="slider-slide">
+						<h2>Diapositiva 2 </h2>
+						<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus suscipit.</p>
+					</div>
+					<div class="slider-slide">
+						<img src="https://picsum.photos/id/26/1000/1000" alt="random">
+					</div>
+					<div class="slider-slide">
+						<h2>Diapositiva 4 </h2>
+						<p>Lorem ipsum dolor sit amet consectetur adipisicing, elit. Doloribus, explicabo, dolor maiores consequuntur labore animi. Error dignissimos eligendi dolore illo deserunt, voluptatum, ullam quod ea aliquid autem, distinctio modi repudiandae!</p>
+					</div>
+					<div class="slider-slide">
+						<img src="https://picsum.photos/id/70/1000/1000" alt="random">
+					</div>
+					<div class="slider-slide">
+						<h2>Diapositiva 6 </h2>
+						<p>Lorem ipsum dolor sit amet consectetur adipisicing, elit. Doloribus, explicabo, dolor maiores consequuntur labore animi. Error dignissimos eligendi dolore illo deserunt, voluptatum, ullam quod ea aliquid autem, distinctio modi repudiandae!</p>
+					</div>
+				</div>
+				<div class="slider-btns">
+					<a href="#" id="prev">&laquo;</a>
+					<a href="#" id="next">&raquo;</a>
+				</div>
+			</div>
+		</section>
+
+
+
+		<section id="seccion4" data-scroll-spy>
+			<h1>Video Inteligente</h1>
+			<video src="assets/video.mp4" controls muted loop data-smart-video></video>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<video src="assets/video.mp4" controls muted loop data-smart-video></video>
+		</section>
+
+
+
+		<section id="seccion5" data-scroll-spy>
+			<h1>Secccion 5</h1>
+		</section>
+		<section id="seccion6" data-scroll-spy>
+			<h1>Secccion 6</h1>
+		</section>
+		<section id="seccion7" data-scroll-spy>
+			<h1>Secccion 7</h1>
+		</section>
+		<section id="seccion8" data-scroll-spy>
+			<h1>Secccion 8</h1>
+		</section>
+	</main>
+
+
+	<!--creando el panel-->
+	<aside class="panel">
+		<nav class="menu">
+			<a href="#seccion1" data-scroll-spy class="active-nav">Filtro por Busqueda</a>
+			<a href="#seccion2" data-scroll-spy>Sorteo Digital</a>
+			<a href="#seccion3" data-scroll-spy>Slider Responsivo</a>
+			<a href="#seccion4" data-scroll-spy>Video Inteligente</a>
+			<a href="#seccion5" data-scroll-spy>Seccion 5</a>
+			<a href="#seccion6" data-scroll-spy>Seccion 6</a>
+			<a href="#seccion7" data-scroll-spy>Seccion 7</a>
+			<a href="#seccion8" data-scroll-spy>Seccion 8</a>
+		</nav>
+	</aside>
+
+
+	<!--agregar esta clase al button is-active--->
+	<button class="hamburger hamburger--collapse" type="button" id="scroll-btn">
+	  <span class="hamburger-box">
+	    <span class="hamburger-inner"></span>
+	  </span>
+	</button>
+
+	<script type="module" src="main.js"></script>
+</body>
+</html>

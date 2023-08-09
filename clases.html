@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	
+	<script type="text/javascript">
+
+		/*
+					PARA CREAR UNA CLASE
+		 */
+		class Animal{
+			//atributos
+			constructor(nombre,genero){
+				this.nombre = nombre;
+				this.genero = genero;
+			}
+
+			//metodos
+			sonar(){
+				console.log("hago sonidos porque estoy vivo");
+			}
+
+			saludar(){
+				console.log(`Hola me llamo : ${this.nombre}`);
+			}
+
+		}
+
+		/*
+					PARA HEREDAR UNA CLASE
+		*/
+		class Perro extends Animal {
+			constructor(nombre,genero,tamanio){
+				super(nombre,genero);
+				this.tamanio = tamanio;
+				this.raza = null;
+			}
+
+			sonar(){
+				console.log("Soy un perro y mi sonido es un ladrido");
+			}
+
+			ladrar(){
+				console.log("Guauuu guauuu!");
+			}
+
+			/*un metodo estatico es aquel que se puede ejecutar sin la necesidad de instanciar la clase*/
+			static queEres(){
+				console.log("Los perros son animales muy leales");
+			}
+
+			/*los getters y setters son metodos especiales que nos permiten establecer y obtener los valores de los atributos de la clase*/
+			get getRaza(){
+				return this.raza;
+			}
+			set setRaza(raza){
+				this.raza = raza;
+			}
+
+		}
+
+
+
+		const masha = new Animal("Masha","Hembra"),
+			scotty = new Perro("Scotty","Macho","Gigante");
+
+		console.log(masha);
+		masha.sonar();
+		masha.saludar();
+
+		console.log(scotty);
+		scotty.sonar();
+		scotty.saludar();
+		scotty.ladrar();
+
+		console.log(scotty.getRaza);
+		scotty.setRaza = "Gran danes";
+		console.log(scotty.getRaza);
+
+		console.log(scotty);
+
+		/*metodo estatico*/
+		Perro.queEres();
+
+
+		console.clear();
+
+		class Persona{
+
+			nombre = ""
+			apellido = ""
+
+			constructor(){
+
+			}
+
+			registrarPersona(nombre,apellido){
+				this.nombre = nombre;
+				this.apellido = apellido;
+			}
+
+			mostrarPersona(){
+				console.log("Datos : "+this.nombre+"-"+this.apellido);
+			}
+		}
+
+		const Persona1 = new Persona();
+		Persona1.registrarPersona("nacho","rojas");
+		Persona1.mostrarPersona();
+
+
+	</script>
+</body>
+</html>

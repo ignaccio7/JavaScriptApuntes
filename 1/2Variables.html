@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>VARIABLES</title>
+</head>
+<body>
+
+	<p id="parrafo1"></p>
+	<p id="parrafo2"></p>
+	<p id="parrafo3"></p>
+	
+	<script>
+		/*
+		VARIABLES EN JAVASCRIPT
+			- Empiezan con la letra, $, _ y siguen con letra, numero 
+			- Pueden contener cadenas ("".'') y numeros (enteros o decimales)
+			- Son sensibles a las mayusculas (nombre != NOMBRE != Nombre)
+			- No pueden utilizarse palabras reservadas
+		*/
+
+		//Declaracion de Variables
+		var nombre;
+
+		//Mostramos el valor de la variable (undefined)
+		document.getElementById('parrafo1').innerHTML = nombre;
+
+		//Asignacion de valor a una variable
+		nombre = "Nestor";
+
+		//Mostramos el valor de la variable
+		document.getElementById('parrafo2').innerHTML = nombre;
+
+		//Declaracion de variables en una sola sentencia
+		var pais="Bolivia",
+			departamento="La Paz";
+			año = 2020;
+
+		//Asignacion de operaciones a una variable
+		var nombreApellido = nombre + " " + "Rojas";
+		var edad = año-1998;
+
+		//MOSTRAMOS EL RESULTADOS
+		document.getElementById('parrafo3').innerHTML = nombreApellido + " edad = " + edad + " nacio en : " + pais + " departamento : " + departamento;
+
+
+	</script>
+</body>
+</html>

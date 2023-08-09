@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Objeto String</title>
+</head>
+<body>
+	<script>
+		
+		//instanciacion
+		var daw ="Desarrollo de aplicaciones web";
+		var dam ="Desarrollo de aplicaciones multiplataforma";
+		var asir ="Administracion de 'Sistemas Informaticos' en Red";
+		var smr = "Sistemas \"Microinformaticos\" y Redes";
+		var ciclos = new String("");
+
+		//CONCATENAR CADENAS
+		ciclos += "Hay 3 ciclos de grado superior \n";
+		ciclos += daw + ", " + dam + " y " + asir + "\n";
+		ciclos += "y 1 ciclo de grado medio: \n";
+		ciclos += smr;
+
+		alert(ciclos);
+
+		/*
+
+		//PROPIEDADES
+		//length longitud de la cadena
+		alert("La longitud de la cadena ciclos es:"+ ciclos.length);
+		//METODOS DE BUSQUEDA
+		//charAt(<NUM>); DEVUELVE EL CARACTER DE UNA POSICION
+		alert("El caracter 10 de la cadena ciclos es:"+ciclos.charAt(10));
+		//indexOf(<caracter>); devuelve la primera posicion de un caracter en una cadena
+		alert("La primera aparicion de la letra 'a' en ciclos es :"+ciclos.indexOf("a"));
+		//lastIndexOf(<caracter>); devuelve la ultima posicion de un caracter en una cadena
+		alert("La primera aparicion de la letra 'a' en ciclos es :"+ciclos.lastIndexOf("a"));
+
+		//search(<cadena>); buscar una cadena regular en otra cadena
+		alert("Busca la cadena 'web' en la variable daw: "+daw.search("web"));
+
+		//localeCompare(<cadena>): devuelve -1(antes), 0(igual) , 1(despues)
+		alert("Es daw menor que dam? : "+ daw.localeCompare(dam));
+		*/
+
+		//INCLUYE EMPIEZA O TERMINA
+		//include(<cadena>); devuelve true si la cadena incluye el parametro
+		alert("Incluye 'aplicaciones' daw? "+daw.includes("aplicaciones"));
+		//startsWith(<cadena>); devuelve True si la cadena empieza con el parametro
+		alert("Empieza daw con la palabra 'aplicaciones'? "+daw.startsWith("aplicaciones"));
+		//endsWith(<cadena>); devuelve True si la cadena termina con el parametro
+		alert("termina daw con la palabra 'web'? "+daw.endsWith("web"));
+
+		//CONCATENACION Y REPETICION
+		//concat(<cadena>); concatena a la cadena
+		alert("Concatena daw con dam \n" + daw.concat(dam));
+		//repeat(<numero>); repetir la cadena el numero de veces que aparezca en el parametro
+		alert("Repetir daw \n"+daw.repeat(3));
+
+		//EXTRACCION
+		//slice(<posicion inicial>,<posicion final>); devuelve la cadena comprendida entre ambas posiciones (substring)
+		alert("La cadena que hay entre el 4 y el 7 en daw es : \n"+ daw+"\n" +daw.slice(4,7));
+		/*alert("La cadena que hay entre el 4 y el 7 en daw es : \n"+ daw+"\n" +daw.slice(4));
+		alert("La cadena que hay entre el 4 y el 7 en daw es : \n"+ daw+"\n" +daw.slice(0,1));
+		alert("La cadena que hay entre el 4 y el 7 en daw es : \n"+ daw+"\n" +daw.slice(-1));*/
+
+		//substring(<posicion inicial>,<posicion final>); devuelve la cadena comprendida entre ambas posiciones (substring)
+		alert("La cadena que hay entre el 4 y el 7 en daw es : \n"+ daw+"\n" +daw.substring(4,7));
+		//substr(<posicion inicial>,<numero de caracteres>); devuelve la cadena comprendida entre la posicion inicial y el numero de caracteres
+		alert("La cadena de 5 caracteres que hay a partir desde el 4 en daw es: \n"+ daw+"\n" +daw.substr(4,5));
+
+		//split(<caracter>,[<numero de veces>]) divide la cadena en un array de subcadenas separadas por el caracter del primer parametro
+		alert("La cadena daw separada por espacios es : "+daw.split(" "));
+		alert("La cadena daw separada por espacios es : "+daw.split(" ",2));
+
+		//trim(<cadena>): extrae los caracteres de la cadena eliminando los espacios del principio y del final
+		alert("La cadena sin espacios quedaria: \n"+"                       Hola, caracola        ".trim());
+
+		//MAYUSCULAS MINUSCULAS
+		//toLowerCase(); devuelve la cadena en minusculas
+		alert(daw.toLowerCase());
+		//toUpperCase(); devuelve la cadena en mayusculas
+		alert(daw.toUpperCase());
+
+		//toString: devuelve el valor del objeto String
+
+	</script>
+</body>
+</html>

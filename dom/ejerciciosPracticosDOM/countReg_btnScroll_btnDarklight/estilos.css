@@ -1,0 +1,134 @@
+/***************     Reset CSS *********************/
+:root {
+	--main-font: sans-serif;
+	--font-size: 16px;
+	--main-color: #40BFE4;
+	--second-color: #222;
+	--second-light-color:#323232;
+	--yellow-color: #F7DF1E;
+	--red-light-color:#D24545;
+	--main-modal-color: rgba(64,191,228,0.80);
+	--second-modal-color: rgba(34,34,34,0.65);
+	--container-width: 1200px;
+}
+
+html{
+	box-sizing: border-box;
+	font-family: var(--main-font);
+	font-size: var(--font-size);
+	scroll-behavior: smooth;
+}
+
+*,
+*::after,
+*::before{
+	box-sizing: inherit;	
+}
+
+body{
+	margin: 0;
+	height: auto;
+}
+
+img{
+	max-width: 100%;
+	height: auto;
+}
+	
+header{
+	text-align: center;
+	background-color: var(--yellow-color);
+	color: var(--red-light-color);
+	font-size: 2rem;
+	font-weight: bold;
+	padding: 10px;
+}
+
+
+/********************  Cuenta regresiva  *****************************/
+
+.section{
+	width: 100%;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+/********************  Scroll Top Button  *****************************/
+.scroll-top-btn{
+	position: fixed;
+	bottom: 1vw;
+	right: calc(5px + 1vw);
+	width: 3rem;
+	height: 3rem;
+	font-size: 2rem;
+	font-weight: bold;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 50%;
+	background-color: var(--main-color);
+	color: var(--second-color);
+	border: none;
+	cursor: pointer;
+	transition: all .5s ease;
+}
+.scroll-top-btn:hover{
+	background-color: var(--second-color);
+	color: var(--main-color);
+}
+.hidden{
+	visibility: hidden;
+	opacity: 0;
+}
+
+/********************  Dark Theme Button  *****************************/
+
+.dark-theme-btn{
+	position: fixed;
+	bottom: 1vw;
+	left: 1vw;
+	width: 3rem;
+	height: 3rem;
+	font-size: 2rem;	
+	background-color: var(--second-light-color);
+	color: var(--yellow-color);
+	border-radius: 50%;
+	border:none;
+	cursor: pointer;
+	transition: all .5s ease;
+	font-weight: bold;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.dark-theme-btn:hover{
+	background-color: var(--yellow-color);
+	color: var(--second-color);	
+}
+
+.dark-theme{
+	background-color: var(--second-color);
+	color: var(--yellow-color);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
