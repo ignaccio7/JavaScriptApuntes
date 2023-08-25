@@ -12,19 +12,32 @@
 		<h2>Validaciones de formulario</h2>
 
 		<!-- PARA VALIDAR CON EXPREG UTILIZAMOS EL ATRIBUTO PATTERN---->
+		<!--- enviaremos el formulario gracias a 
+		https://formsubmit.co/
+		y seguimos su formato
 		<form class="contact-form">
+		-->
+		<form class="contact-form" action="https://formsubmit.co/igna260298@gmail.com" method="POST">
 			<!--este legend es como el titulo del formulario-->
 			<legend>Envianos tus comentarios</legend>
 
 			<!--cuando el input detecte un patron a cumplir el texto aparece cuando incumplimos al querer enviar-->
 			<input type="text" name="name" placeholder="Escribe tu nombre" title="El nombre solo acepta letras y espacios en blanco" pattern="^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$" required>
 
+			<br>
+
 			<input type="email" name="email" placeholder="Escribe tu correo" title="Email incorrecto" pattern="^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$" required>
+			<br>
+
 
 			<input type="text" name="subject" placeholder="Asunto a tratar" title="El asunto es requerido" required>
+			<br>
+
 
 			<!---el textarea no acepta el pattern pero lo agregaremos un data atributte para validar con js-->
 			<textarea name="comments" cols="50" rows="5" placeholder="Escribe tus comentarios" title="No se debe exceder los 255 caracteres" required data-pattern="^.{1,255}$"></textarea>
+			<br>
+
 
 			<input type="submit" value="enviar">
 
@@ -41,8 +54,41 @@
 		</form>
 
 	</section>
-	<section></section>
 
-	<script type="module" src="main.js"></script>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+
+	<section style="text-align: center;">
+		<h1>Narrador</h1>
+		<select id="speech-select">
+			<option value="">---Elige una Voz---</option>
+		</select>
+		<br><br>
+		<textarea id="speech-text" cols="50" rows="5" placeholder="Ingrese un texto para leerlo"></textarea> <br>
+		<button id="speech-btn">Leer Texto</button>
+
+	</section>
+
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+
+
+	<!--<script type="module" src="main.js"></script>-->
+	<script type="text/javascript" src="validations.js"></script>
 </body>
 </html>

@@ -420,7 +420,7 @@ ELEMENTOS PARA INSERTAR ELEMENTOS EN EL LUGAR QUE NOSOTROS QUERAMOS
 .insertAdjacent...
   .insertAdjacentElement(position, el) similar al appendChild
   .insertAdjacentHTML(position, html) similar al innerHTML
-  .insertAdjacentText(position, text) similar al textConten
+  .insertAdjacentText(position, text) similar al textContent
 
 Posiciones:
   beforebegin(hermano anterior)

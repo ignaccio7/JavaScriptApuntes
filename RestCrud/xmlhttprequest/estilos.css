@@ -1,0 +1,12 @@
+.container,article{
+    margin-top: 2rem;
+}
+
+
+h1{
+    color: rgb(70, 73, 89);
+    font-weight: bold;
+    text-decoration: overline underline;
+}
+
+
