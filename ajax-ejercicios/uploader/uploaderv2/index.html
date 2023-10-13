@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uploader</title>
+    <style>
+        main {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        /* .progress-bar{
+            padding: 10px;
+            font-size: .9rem;
+        } */
+        progress{
+            margin-top: .5rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main>
+        <h1>Uploader</h1>
+        <input type="file" id="files" name="files" multiple>
+        <!-- <div class="progress-bar">
+            <progress value="50" max="100"></progress>
+            <span>En proceso</span>
+        </div> -->
+        
+    </main>
+
+    <script>
+
+        /****** EN ESTA MODIFICACION AGREGAMOS UNA BARRA DE PROGRESO AL UPLOADER */
+
+        const d = document,
+            $main = d.querySelector("main"),
+            $files = d.getElementById("files");
+
+
+        const uploader = async (file) => {
+            try {
+                //console.log(file);
+
+                //cuando nosotros enviamos un formulario por get o por post enviamos un formdata y para simular el envio en formato del formulario el valor de los inputs
+                //recibe como parametro un formulario
+                let formData = new FormData();
+
+                //como le creamos una variable de tipo formulario
+                //(<name>,<informacion>)
+                formData.append("file", file);
+
+                //const response = await fetch("http://localhost/uploader/uploader.php", {
+                const response = await fetch("./uploader.php", {
+                    method: "POST",
+                    headers: {
+                        //como estamos subiendo archivos binarios la cabecera cambia
+                        //encoding type : para que detecte que a parte de variables textuales enviamos archivos binarios
+                        "enc-type": "multipart/form-data"
+                    },
+                    body: formData
+                });
+
+                if (!response.ok) throw "Ocurrio un error";
+
+                //NOTA AQUI RECIBIMOS ESE ARCHIVO EN FORMATO TEXTO YA CUANDO SEPAMOS QUE NOS LLEGA LA INFORMACION ENTONCES RECIBIREMOS UN JSON
+                //let data = await response.text();
+                let data = await response.json();
+
+                //console.log(response);
+                console.log(data);
+
+            } catch (error) {
+                console.log("CATCH");
+                console.log(error);
+            }
+
+        };
+
+        const progressUpload = (file)=>{
+            
+            const $progress = d.createElement("progress"),
+                $span = d.createElement("span");
+            
+            $progress.value=0;
+            $progress.max=100;
+
+            $main.insertAdjacentElement("beforeend",$progress);
+            $main.insertAdjacentElement("beforeend",$span);
+
+            //para controlar el progreso de subida tenemos una api se podria decir en javascript para detectar los bits que se van cargando
+            //FileReader es una herramienta útil para leer el contenido de archivos locales en el navegador. Permite cargar archivos y procesar su contenido en diferentes formatos
+            const fileReader = new FileReader();
+            //Este metodo recibe como parametro el archivo que va leer y lo tenemos como una url como vimos anteriormente
+            fileReader.readAsDataURL(file);
+
+            //evento cuando exista un progreso de carga al estar subiendo el archivo
+            fileReader.addEventListener("progress",(e)=>{
+                //console.log(e); //en este evento tenemos 2 propiedades que nos van a servir que son total que representa el tamaño del archivo y loaded para saber cuantos de esos se an cargado
+                //entonces aqui hacemos una regla de 3
+                let progress = parseInt((e.loaded*100)/e.total);
+                $progress.value = progress;
+                $span.innerHTML = `<b> ${file.name} - ${progress} </b>`;
+            });
+            //evento cuando se haya cargado el archivo
+            fileReader.addEventListener("loadend",e=>{
+                uploader(file);
+                setTimeout(()=>{
+                    $main.removeChild($progress);
+                    $main.removeChild($span);
+
+                    $files.value = "";
+                },3000);
+            })            
+            //NOTA NO HACEMOS DELEGACION DE EVENTOS CON ESTOS EVENTOS PORQUE SON EVENTOS LIGADOS AL FILE READER
+
+            /************** NOTA LEER AL FINAL: hay que hacer notar que esta subida esta verificando cuando el navegador esta leyendo los archivos que nosotros agregamos para poder mandarlos al servidor
+             * si nosotros quisieramos determinar el tiempo cuando el servidor mueve los archivos temporales desde su ruta temporal a la que nosotros determinamos tendria que ser otro tipo de maniupulacion con ajax y eso ver despues**/
+
+        };
+
+        d.addEventListener("change", (e) => {
+            if (e.target === $files) {
+                //el input de tipo archivos tiene un atributo files para ver un filelist donde podremos ver la lista de archivos que estemos agregando (da igual si son multiples archivos o solo uno)
+                console.log(e.target.files);
+
+                //como este filelist no podemos iterarlo pero vemos que tiene los atributos asi que lo podemos convertir a un objeto que si podamos
+                const files = Array.from(e.target.files);
+
+                files.forEach(async elem => {
+                    // await uploader(elem)
+                    await progressUpload(elem);
+                });
+
+            }
+        })
+
+
+    </script>
+
+</body>
+
+</html>

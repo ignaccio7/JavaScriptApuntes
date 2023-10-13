@@ -99,11 +99,11 @@ function contactFormValidations(){
 
 			$loader.classList.remove("none");
 
-			setInterval(()=>{
+			setTimeout(()=>{
 				$loader.classList.add("none");
 				$response.classList.remove("none");
 				
-				setInterval(()=>{
+				setTimeout(()=>{
 					$response.classList.add("none");
 					e.target.reset();
 				},3000);

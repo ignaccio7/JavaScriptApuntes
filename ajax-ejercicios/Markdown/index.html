@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown</title>
+</head>
+<body>
+    <!-- 
+        Sabemos que ya paginas como github soportan formato markdown y este se volvio muy popular y generalmente el archivo principal de la teoria o documentacion de repositorios esta en este lenguaje 
+        generalmente el codigo fuente esta en markdown y luego se compila a html
+        Podemos revisar mas en:
+        https://css-tricks.com/choosing-right-markdown-parser/  aqui podemos ver la libreria que estamos usando para compilar o transformar si se podria decir el codigo markdown a html
+        https://joedicastro.com/pages/markdown.html una pagina guia que te muestra como hacer markdown 
+
+        Podemos ver que escribir en markdown es bastante simple y mas legible que en html
+
+    -->
+    <h1>Blog con Markdown y Showdown.js</h1>
+
+    <main>
+
+    </main>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"></script>
+    <script>
+        const d = document,
+            $main = d.querySelector("main");
+
+        fetch("./javascript.md")
+        .then(res=>{
+            if (res.ok) {
+                return res.text();
+            }
+            return Promise.reject(res);
+        })
+        .then((text)=>{
+            console.log(text);
+            //si pegamos con innerHTML pues pega texto plano para eso necesitamos la libreria
+            // $main.innerHTML = text;
+            $main.innerHTML = new showdown.Converter().makeHtml(text);
+        })
+        .catch((err)=>{
+            console.log("CATCH");
+            console.log(err);
+            let message= err.statusText || "Ocurrio un error";
+            $main.innerHTML = `Error ${err.status}: ${message}`;
+        });
+            
+    </script>
+</body>
+</html>

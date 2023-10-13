@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uploader</title>
+    <style>
+        main {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main>
+        <h1>Uploader</h1>
+        <input type="file" id="files" name="files" multiple>
+    </main>
+
+    <script>
+
+        const d = document,
+            $main = d.querySelector("main"),
+            $files = d.getElementById("files");
+
+
+        const uploader = async (file) => {
+            try {
+                //console.log(file);
+
+                //cuando nosotros enviamos un formulario por get o por post enviamos un formdata y para simular el envio en formato del formulario el valor de los inputs
+                //recibe como parametro un formulario
+                let formData = new FormData();
+
+                //como le creamos una variable de tipo formulario
+                //(<name>,<informacion>)
+                formData.append("file", file);
+
+                const response = await fetch("http://localhost/uploader/uploader.php", {
+                    method: "POST",
+                    headers: {
+                        //como estamos subiendo archivos binarios la cabecera cambia
+                        //encoding type : para que detecte que a parte de variables textuales enviamos archivos binarios
+                        "enc-type": "multipart/form-data"
+                    },
+                    body: formData
+                });
+
+                if(!response.ok) throw "Ocurrio un error";
+
+                //NOTA AQUI RECIBIMOS ESE ARCHIVO EN FORMATO TEXTO YA CUANDO SEPAMOS QUE NOS LLEGA LA INFORMACION ENTONCES RECIBIREMOS UN JSON
+                //let data = await response.text();
+                let data = await response.json();
+
+                //console.log(response);
+                console.log(data);
+
+            } catch (error) {
+                console.log("CATCH");
+                console.log(error);
+            }
+
+        };
+
+        d.addEventListener("change", (e) => {
+            if (e.target === $files) {
+                //el input de tipo archivos tiene un atributo files para ver un filelist donde podremos ver la lista de archivos que estemos agregando (da igual si son multiples archivos o solo uno)
+                console.log(e.target.files);
+
+                //como este filelist no podemos iterarlo pero vemos que tiene los atributos asi que lo podemos convertir a un objeto que si podamos
+                const files = Array.from(e.target.files);
+
+                files.forEach(async elem => await uploader(elem));
+
+            }
+        })
+
+
+    </script>
+
+</body>
+
+</html>

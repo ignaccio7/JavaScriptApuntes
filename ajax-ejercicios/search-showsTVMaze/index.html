@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API-TVShows</title>
+    <style>
+        .grid-fluid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            text-align: center;
+        }
+
+        .loader {
+            display: block;
+            margin: auto;
+            padding: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- https://www.tvmaze.com/ 
+    https://www.tvmaze.com/api -->
+    <h1>Buscador de Shows con TVMaze API</h1>
+
+    <input type="search" id="search" placeholder="Digita el dato a buscar">
+    <main>
+        <section class="grid-fluid" id="shows">
+
+        </section>
+    </main>
+
+
+    <template id="show-template">
+        <article class="show">
+            <h3></h3> <!-- titulo -->
+            <div class="description"></div> <!-- descripcion -->
+            <img> <!-- la imagen que traeremos de la api -->
+            <a></a> <!-- un enlace que nos enviara al registro en tvmaze -->
+        </article>
+    </template>
+
+    <script>
+        const d = document,
+            $shows = d.getElementById("shows"),
+            $template = d.getElementById("show-template").content,
+            $fragment = d.createDocumentFragment();
+
+        //el evento cuando el usuario este digitando en el teclado
+        d.addEventListener("keypress", async (e) => {
+            if (e.target.matches("#search")) {
+                // console.log(e.key);
+                if (e.key === "Enter") {
+                    try {
+                        $shows.innerHTML = `<img src="loader.svg" alt="Cargando..." class="loader">`;
+
+                        let query = e.target.value.toLowerCase(),
+                            api = `https://api.tvmaze.com/search/shows?q=${query}`,
+                            response = await fetch(api),
+                            json = await response.json();
+
+                        if (!response.ok) throw { status: response.status, statusText: response.statusText };
+
+                        if (json.length === 0) {
+                            $shows.innerHTML = `<h2>No existen resultados de shows para <mark> ${e.target.value} </mark></h2>`;
+                        }else{
+                            json.forEach(element => {
+                                $template.querySelector("h3").textContent = element.show.name;
+                                // $template.querySelector(".description").textContent = element.show.summary; aqui podemos ver que el summary viene en formato html
+                                $template.querySelector(".description").innerHTML = element.show.summary ? element.show.summary : "Sin descripcion";
+
+                                // $template.querySelector("img").setAttribute("src", element.show.image.medium); //aqui hay shows sin imagen y marcara error
+                                $template.querySelector("img").setAttribute("src", element.show.image 
+                                ? element.show.image.medium
+                                : "https://static.tvmaze.com/images/no-img/no-img-portrait-text.png"); //colocamos esa imagen por defecto que nos ofrece tvmaze
+                                $template.querySelector("img").alt = element.show.name; 
+                                //en este momento wonder woman buscamos si quremos ver que no tiene imagen
+                                $template.querySelector("img").style.maxWidth = "100%";
+                                $template.querySelector("img").style.display = "block";
+
+                                $template.querySelector("a").href = element.show.url || "#";
+                                $template.querySelector("a").target = element.show.url ? "_blank":"_self";
+                                $template.querySelector("a").textContent = element.show.url ? "Ver mas..." : "";
+
+                                let $clone = d.importNode($template,true);
+                                $fragment.appendChild($clone);
+                            });
+
+                            $shows.innerHTML = '';
+                            //no podemos usar innerhtml ya que esto recibe contenido html mientras que este fragment es un nodo asi que appendchild
+                            $shows.appendChild($fragment);
+                        }
+
+                        console.log(json);
+
+
+
+
+                    } catch (err) {
+                        console.log(err);
+                        let message = err.statusText || "Ocurrio un error";
+                        $shows.innerHTML = `<p>Error ${err.status}: ${message}</p>`;
+                    }
+                }
+            }
+        });
+
+    </script>
+</body>
+
+</html>

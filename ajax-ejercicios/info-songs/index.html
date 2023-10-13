@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscador de canciones</title>
+    <style>
+        html{
+            font-family: sans-serif;
+        }
+        img{
+            max-width: 100%;
+            height: auto;
+        }
+        main{
+            display: flex;
+            flex-direction: column-reverse;
+        }
+        .loader{
+            display: none;
+            margin: auto;
+        }
+
+        @media screen and (min-width:800px) {
+            main{
+                flex-direction: row;
+            }
+            
+            main > *{
+                padding: 20px;
+                flex-basis: 50%;
+            }
+        }
+
+        form input{
+            display: block;
+            margin: auto;
+            min-width: 30rem;
+            padding: 1rem;
+        }
+        input[type="submit"]{
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Buscador de canciones</h1>
+    <form action="" id="song-search">
+        <input type="text" name="artist" placeholder="Digita el nombre del interprete" required><br>
+        <input type="text" name="song" placeholder="Digita el nombre de la cancione" required><br>
+        <input type="submit" value="Buscar">        
+    </form>
+    
+    <img src="loader.svg" alt="Cargando..." class="loader">
+
+    <aside class="error"></aside>
+
+    <main>
+        <!--contenido-->
+        <article class="artist">
+            <!-- <h2>Informacion del artista</h2> -->
+        </article>
+        <article class="song">
+            <!-- <h2>Letra de la cancion</h2> -->
+        </article>
+    </main>
+
+    
+
+
+    <script>
+        // https://lyricsovh.docs.apiary.io/#
+        // https://theaudiodb.com/
+        // https://api.copomex.com/documentacion/inicio
+        const d = document,
+            $form = d.getElementById('song-search'),
+            $loader = d.querySelector('.loader'),
+            $error = d.querySelector('.error'),
+            $artist = d.querySelector('.artist'),
+            $song = d.querySelector('.song');
+
+        // d.addEventListener("submit",e=>{
+        //     if (e.target === $form) {
+        //         e.preventDefault();    
+        //         console.log("Uno");
+        //     }
+        // })
+
+        $form.addEventListener("submit",async (e)=>{
+            e.preventDefault();
+            $loader.style.display = "block";
+            try {
+                
+                let artist = e.target.artist.value.toLowerCase(),
+                    song = e.target.song.value.toLowerCase();
+
+                let $artistTemplate = "",
+                    $songTemplate = "",
+                    artistAPI=`https://www.theaudiodb.com/api/v1/json/2/search.php?s=${artist}`,
+                    songAPI=`https://api.lyrics.ovh/v1/${artist}/${song}`;
+                    artistFetch = fetch(artistAPI),
+                    songFetch = fetch(songAPI);
+                //https://www.theaudiodb.com/api/v1/json/2/search.php?s=coldplay
+
+                //esperaremos hasta que se ejecuten ambas peticiones
+                //Promise.all() toma ese array de promesas y devuelve una nueva promesa que se resuelve cuando todas las promesas del array se han resuelto con éxito.
+                let [artistResponse, songResponse] = await Promise.all([artistFetch, songFetch]);
+
+                // if (!artistResponse.ok) throw { status:artistResponse.status || 0, statusText:artistResponse.statusText||"" }  
+                // if (!songResponse.ok) throw { status:songResponse.status || 0, statusText:songResponse.statusText||"" }  
+
+                //probar con Eddie Vedder y Society
+                console.log(artistResponse);
+                console.log(songResponse);
+
+                let artistData = await artistResponse.json(),
+                    songData = await songResponse.json();
+
+                console.log(artistData);
+                console.log(songData);
+
+                if (artistData.artists === null) {
+                    $artistTemplate =`<h2>No existe el interprete <mark>${artist}</mark></h2>`;
+                }else{
+                    let art = artistData.artists[0];
+                    $artistTemplate = `
+                        <h2>${art.strArtist}</h2>
+                        <img src="${art.strArtistThumb}" alt="imagen">
+                        <p>
+                            ${art.intBornYear} - ${art.intDiedYear || "Presente"}
+                        </p>
+                        <p>
+                            ${art.strCountry}
+                        </p>
+                        <p>
+                            ${art.strGenre} - ${art.strStyle}
+                        </p>
+                        <a href="//${art.strWebsite}" target="_blank">Sitio Web</a>
+                        <p>
+                            ${art.strBiographyEN}
+                        </p>
+                    `; 
+                }
+
+                if (songData.error) {
+                    $songTemplate = `
+                        <h2>No existe la cancion <mark>${song}</mark></h2>
+                    `;
+                }else{
+                    $songTemplate = `
+                        <h2>${song}</h2>
+                        <blockquote>${songData.lyrics}</blockquote>
+                    `;
+                }
+
+                $loader.style.display = "none";
+                $artist.innerHTML = $artistTemplate;
+
+                $song.innerHTML = $songTemplate;
+
+            } catch (error) {
+                console.log("CATCH");
+                console.log(error);                
+                $loader.style.display = "none";
+                $artist.innerHTML = '';
+                $song.innerHTML = '';
+                let message = error.statusText || 'Ocurrio un error';
+                $error.innerHTML = `<p>Error ${error.status}: <mark>${message}</mark></p>`;
+            }
+        })
+
+
+    </script>
+</body>
+</html>

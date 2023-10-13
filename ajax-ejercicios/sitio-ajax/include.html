@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SitioAjaxInclude</title>
+    <style>
+        html {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: 16px;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: inherit;
+        }
+
+        body {
+            margin: 0;
+            width: 100%;
+            overflow-x: hidden;
+            min-height: 100vh;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: lightskyblue;
+        }
+
+        header img {
+            width: 2rem;
+            height: auto;
+        }
+
+        .header-container {
+            display: flex;
+            margin: .5rem 2rem;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .header-container a {
+            text-decoration: none;
+            font-size: .9rem;
+            padding: 0 .2rem;
+            color: darkblue;
+            font-weight: 600;
+        }
+
+        main {
+            flex-grow: 1;
+            background-color: lightcyan;
+            padding: 0 20px;
+        }
+
+        footer {
+            background-color: darkslategrey;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            font-size: .8rem;
+        }
+    </style>
+    <script src="include-html.js"></script>
+</head>
+
+<body>    
+
+    <div data-include="assets/header.html">
+    </div>
+
+    <main class="">
+        <!--Aqui se cargara el contenido dinamicamente sin cambiar la url-->
+    </main>
+
+    <div data-include="assets/footer.html">        
+    </div>
+
+
+
+    <script>
+
+        const d = document;
+
+        const getPage = async (options) => {
+            let { url, success, error } = options;
+            try {
+                let response = await fetch(url);
+                
+                if (!response.ok) throw { status: response.status , message:response.statusText||"Ocurrio un error" };
+
+                let data = await response.text();
+                success(data);
+
+            } catch (err) {
+                error(err);
+            }
+
+        };
+
+        d.addEventListener("DOMContentLoaded", (e) => {
+            getPage({ 
+                url: "assets/home.html", 
+                success: (res) => { d.querySelector("main").innerHTML = res }, 
+                error: (err) => { d.querySelector("main").innerHTML = `<b>Error ${err.status} : ${err.message} </b>`; } });
+        })
+
+        d.addEventListener("click",(e)=>{
+
+            if (e.target.matches("nav a")) {
+                e.preventDefault();
+                getPage({ 
+                url: e.target.getAttribute("href"), 
+                success: (res) => { d.querySelector("main").innerHTML = res }, 
+                error: (err) => { d.querySelector("main").innerHTML = `<b>Error ${err.status} : ${err.message} </b>`; } });
+            }
+
+        })
+
+    </script>
+
+</body>
+
+</html>

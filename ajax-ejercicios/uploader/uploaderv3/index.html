@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uploader</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        main {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* .progress-bar{
+            padding: 10px;
+            font-size: .9rem;
+        } */
+        .drop-zone {
+            margin-inline: auto;
+            border: thin dotted #000;
+            width: 80%;
+            height: 40vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .drop-zone.is-active {
+            border: thick dashed #000;
+            background-color: rgba(0, 128, 0, .5);
+            animation: pulse 1.5s infinite;
+            animation-timing-function: linear;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <main>
+        <h1>Uploader</h1>
+
+        <div class="drop-zone">
+            <p>Arrastra y suelta tus archivos...</p>
+        </div>
+
+    </main>
+
+    <script>
+
+        /****** EN ESTA MODIFICACION AGREGAMOS DRAG AND DROP AL UPLOADER */
+
+        const d = document,
+            $main = d.querySelector("main"),
+            $dropZone = d.querySelector(".drop-zone");
+
+
+        const uploader = async (file) => {
+            try {
+                //console.log(file);
+
+                //cuando nosotros enviamos un formulario por get o por post enviamos un formdata y para simular el envio en formato del formulario el valor de los inputs
+                //recibe como parametro un formulario
+                let formData = new FormData();
+
+                //como le creamos una variable de tipo formulario
+                //(<name>,<informacion>)
+                formData.append("file", file);
+
+                //const response = await fetch("http://localhost/uploader/uploader.php", {
+                const response = await fetch("./uploader.php", {
+                    method: "POST",
+                    headers: {
+                        //como estamos subiendo archivos binarios la cabecera cambia
+                        //encoding type : para que detecte que a parte de variables textuales enviamos archivos binarios
+                        "enc-type": "multipart/form-data"
+                    },
+                    body: formData
+                });
+
+                if (!response.ok) throw "Ocurrio un error";
+
+                //NOTA AQUI RECIBIMOS ESE ARCHIVO EN FORMATO TEXTO YA CUANDO SEPAMOS QUE NOS LLEGA LA INFORMACION ENTONCES RECIBIREMOS UN JSON
+                //let data = await response.text();
+                let data = await response.json();
+
+                //console.log(response);
+                console.log(data);
+
+            } catch (error) {
+                console.log("CATCH");
+                console.log(error);
+            }
+
+        };
+
+        const progressUpload = (file) => {
+
+            const $progress = d.createElement("progress"),
+                $span = d.createElement("span");
+
+            $progress.value = 0;
+            $progress.max = 100;
+
+            $main.insertAdjacentElement("beforeend", $progress);
+            $main.insertAdjacentElement("beforeend", $span);
+
+            //para controlar el progreso de subida tenemos una api se podria decir en javascript para detectar los bits que se van cargando
+            //FileReader es una herramienta útil para leer el contenido de archivos locales en el navegador. Permite cargar archivos y procesar su contenido en diferentes formatos
+            const fileReader = new FileReader();
+            //Este metodo recibe como parametro el archivo que va leer y lo tenemos como una url como vimos anteriormente
+            fileReader.readAsDataURL(file);
+
+            //evento cuando exista un progreso de carga al estar subiendo el archivo
+            fileReader.addEventListener("progress", (e) => {
+                //console.log(e); //en este evento tenemos 2 propiedades que nos van a servir que son total que representa el tamaño del archivo y loaded para saber cuantos de esos se an cargado
+                //entonces aqui hacemos una regla de 3
+                let progress = parseInt((e.loaded * 100) / e.total);
+                $progress.value = progress;
+                $span.innerHTML = `<b> ${file.name} - ${progress} </b>`;
+            });
+            //evento cuando se haya cargado el archivo
+            fileReader.addEventListener("loadend", e => {
+                uploader(file);
+                setTimeout(() => {
+                    $main.removeChild($progress);
+                    $main.removeChild($span);
+                }, 5000);
+            })
+            //NOTA NO HACEMOS DELEGACION DE EVENTOS CON ESTOS EVENTOS PORQUE SON EVENTOS LIGADOS AL FILE READER
+
+            /************** NOTA LEER AL FINAL: hay que hacer notar que esta subida esta verificando cuando el navegador esta leyendo los archivos que nosotros agregamos para poder mandarlos al servidor
+             * si nosotros quisieramos determinar el tiempo cuando el servidor mueve los archivos temporales desde su ruta temporal a la que nosotros determinamos tendria que ser otro tipo de maniupulacion con ajax y eso ver despues**/
+
+        };
+
+        /*
+            usaremos el API de drag and drop 
+        */
+        //evento cuando estemos sobre el elemento pero cuando estemos tratando de arrastrar un documento imagen etc 
+        $dropZone.addEventListener("dragover", (e) => {
+            //como es un evento que ejecutamos y el body esta por detras recordemos de la propagacion de errores
+            e.stopPropagation();
+            e.preventDefault();
+            // console.log("DRAGOVER");
+            // console.log(e);
+            $dropZone.classList.add("is-active");
+        });
+        //evento cuando sales de la zona que es arrastrable
+        $dropZone.addEventListener("dragleave", (e) => {
+            //como es un evento que ejecutamos y el body esta por detras recordemos de la propagacion de errores
+            e.stopPropagation();
+            e.preventDefault();
+            // console.log("DRAGLEAVE");
+            // console.log(e);
+            $dropZone.classList.remove("is-active");
+        });
+        //evento cuando sueltas el archivo
+        $dropZone.addEventListener("drop", (e) => {
+            //como es un evento que ejecutamos y el body esta por detras recordemos de la propagacion de errores
+            e.stopPropagation();
+            e.preventDefault();
+            // console.log("DROP");
+            // console.log(e);
+            //en el evento dragevent la propiedad dataTransfer files es el que contiene los elementos al igual que como teniamos en el input file de tipo multiple
+            const files = Array.from(e.dataTransfer.files);
+            files.forEach(elem=>progressUpload(elem));
+            $dropZone.classList.remove("is-active");
+        });
+
+    </script>
+
+</body>
+
+</html>

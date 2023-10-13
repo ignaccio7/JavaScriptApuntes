@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formularios Narrador</title>
+    <link rel="stylesheet" type="text/css" href="estilos.css">
+</head>
+
+<body>
+    <h1>Ejercicios Formulario - Narrador</h1>
+    <section class="formulario">
+        <h2>Validaciones de formulario</h2>
+
+        <!-- PARA VALIDAR CON EXPREG UTILIZAMOS EL ATRIBUTO PATTERN---->
+        <!--- enviaremos el formulario gracias a 
+		https://formsubmit.co/
+		y seguimos su formato
+		<form class="contact-form">
+		-->
+        <form class="contact-form">
+            <!--este legend es como el titulo del formulario-->
+            <legend>Envianos tus comentarios</legend>
+
+            <!--cuando el input detecte un patron a cumplir el texto aparece cuando incumplimos al querer enviar-->
+            <input type="text" name="name" placeholder="Escribe tu nombre"
+                title="El nombre solo acepta letras y espacios en blanco" pattern="^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$"
+                required>
+
+            <br>
+
+            <input type="email" name="email" placeholder="Escribe tu correo" title="Email incorrecto"
+                pattern="^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$" required>
+            <br>
+
+
+            <input type="text" name="subject" placeholder="Asunto a tratar" title="El asunto es requerido" required>
+            <br>
+
+
+            <!---el textarea no acepta el pattern pero lo agregaremos un data atributte para validar con js-->
+            <textarea name="comments" cols="50" rows="5" placeholder="Escribe tus comentarios"
+                title="No se debe exceder los 255 caracteres" required data-pattern="^.{1,255}$"></textarea>
+            <br>
+
+
+            <input type="submit" value="enviar">
+
+            <div class="contact-form-loader none" style="text-align: center;">
+                <!--El loader lo sacamos de 
+				https://samherbert.net/svg-loaders/-->
+                <img src="circles.svg" alt="Cargando...">
+            </div>
+
+            <div class="contact-form-response none">
+                <p>Los datos han sido enviados</p>
+            </div>
+
+        </form>
+
+    </section>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+
+    <!--<script type="module" src="main.js"></script>-->
+    <!-- <script type="text/javascript" src="validations.js"></script> -->
+    <script type="text/javascript">
+
+        const d = document,
+            w = window;
+
+        function contactFormValidations() {
+            const $form = d.querySelector(".contact-form"),
+                $inputs = d.querySelectorAll(".contact-form [required]");
+
+            //console.log($inputs);
+
+            $inputs.forEach((input) => {
+                let $span = d.createElement("span");
+                //$span.setAttribute("id",input.name);
+                $span.id = input.name;
+                //console.log($span);		
+                $span.textContent = input.getAttribute("title");
+                $span.classList.add("contact-form-error", "none");
+                input.insertAdjacentElement("afterend", $span);
+            });
+
+            d.addEventListener("keyup", (e) => {
+                if (e.target.matches(".contact-form [required]")) {
+                    let $input = e.target,
+                        //pattern = $input.getAttribute("pattern") || $input.getAttribute("data-pattern");
+                        pattern = $input.pattern || $input.dataset.pattern;
+                    //console.log($input,pattern);
+                    if (pattern && $input.value !== "") {
+                        //console.log("El input tiene patron");
+                        let regex = new RegExp(pattern);
+                        return !regex.exec($input.value)
+                            ? d.getElementById($input.name).classList.add("is-active")
+                            : d.getElementById($input.name).classList.remove("is-active");
+                    }
+
+                    if (!pattern) {
+                        //console.log("El input no tiene patron");
+                        //console.log($input.value.trim().length > 0);
+                        //console.log($input.value === "");
+                        return ($input.value !== "" && $input.value.trim().length > 0)
+                            ? d.getElementById($input.name).classList.remove("is-active")
+                            : d.getElementById($input.name).classList.add("is-active");
+                    }
+
+
+                }
+            });
+
+            d.addEventListener("submit", (e) => {
+                if (e.target.matches(".contact-form")) {
+                    e.preventDefault();
+                    //alert("se esta enviando");
+                    const $loader = d.querySelector('.contact-form .contact-form-loader'),
+                        $response = d.querySelector('.contact-form .contact-form-response');
+
+                    $loader.classList.remove("none");
+
+                    fetch("https://formsubmit.co/ajax/igna260298@gmail.com",{
+                        method:"POST",//tenemos un formulario pero aun asi utilizamos un FormData porque este objeto parse los valores dele elemento y su valor de cada valor del formulario                                                
+                        body: new FormData(e.target) //si hacemos esto entonces ya no tenemos que estar haciendo nombre:nombre.value .... el formdata internamente parseara y muy importante todos los inputs deben tener el atributo name establecido
+                    })
+                    .then(response=>{
+                        if (!response.ok) {
+                            Promise.reject(response);
+                        }
+                        return response.json();
+                    })
+                    .then(json=>{
+                        console.log(json);
+                        $loader.classList.add("none");
+                        $response.textContent = json.message || "Exito al enviar";
+                        $response.classList.remove("none");
+                        $form.reset();
+                    })
+                    .catch(error=>{
+                        console.log(error);
+                        let message = error.statusText || "Ocurrio un error al enviar intenta nuevamente";
+                        $response.textContent = `Error ${error.status}: ${message}`;
+                    })
+                    .finally(()=>{
+                        setTimeout(() => {
+                            $response.classList.add("none");                            
+                        }, 3000);
+                    });
+                    // setTimeout(() => {
+                    //     $loader.classList.add("none");
+                    //     $response.classList.remove("none");
+
+                    //     setTimeout(() => {
+                    //         $response.classList.add("none");
+                    //         e.target.reset();
+                    //     }, 3000);
+
+                    // }, 3000);
+
+
+                }
+            });
+        }
+
+        d.addEventListener("DOMContentLoaded", (e) => {
+            contactFormValidations();
+
+
+        });
+
+    </script>
+</body>
+
+</html>

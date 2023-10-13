@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PokeAPI</title>
+    <style>
+        .loader {
+            display: block;
+            margin: auto;
+        }
+
+        .grid-fluid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            justify-items: center;
+        }
+
+        .links{
+            text-align: center;
+        }
+
+        .links a {
+            text-decoration: none;
+            color: white;
+            font-size: 1.2rem;
+            background-color: rgb(33, 78, 227);
+            border: 1px solid rgb(33, 78, 227);
+            padding: .2rem;
+            border-radius: .3rem;
+            margin: .5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Pokemons</h1>
+
+    <nav class="links"></nav>
+
+    <main class="grid-fluid">
+
+    </main>
+
+
+    <script>
+        // https://samherbert.net/svg-loaders/
+        const d = document,
+            $main = d.querySelector("main"),
+            $links = d.querySelector(".links");
+
+        //https://pokeapi.co/docs/v2#pokemon
+        let urlPokeAPI = "https://pokeapi.co/api/v2/pokemon"
+
+        async function loadPokemons(url) {
+            try {
+                //agregamos el loader
+                $main.innerHTML = `<img class="loader" src="./loader.svg" alt="Cargando...">`;
+
+                let response = await fetch(url),
+                    json = await response.json(),
+                    $template = "",
+                    $prevLink = "",
+                    $nextLink = "";
+
+                if (!response.ok) throw { status: response.status, statusText: response.statusText };
+
+                //NOTA hasta cierto punto foreach no es un codigo bloqueante por lo cual cuando hagamos la peticion de las imagenes con foreach esta nose esperara a terminar
+                //el for normalito hasta cierto punto es bloqueante
+                for (let i = 0; i < json.results.length; i++) {
+                    //console.log(json.results[i]);
+                    try {
+                        let res = await fetch(json.results[i].url),
+                            pokemon = await res.json();
+
+                        if (!res.ok) throw { status: res.status, statusText: res.statusText };
+
+                        $template += `
+                                <figure>
+                                    <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
+                                    <figcaption> ${pokemon.name} </figcaption>
+                                </figure>
+                            `;
+
+                        //console.log(pokemon);
+                    } catch (err) {
+                        let message = err.statusText || "Ocurrio un error";
+                        $template += ` 
+                            <figure>
+                                <figcaption>${err.status}:${err.message}</figcaption>
+                            </figure>
+                        `;
+                    }
+                }
+
+                $main.innerHTML = $template;
+
+                //para los botones
+                // https://emojipedia.org/last-track-button
+                $prevLink = json.previous ? `<a href="${json.previous}">⏮️</a>` : "";
+                $nextLink = json.next ? `<a href="${json.next}">⏭️</a>` : "";
+
+                $links.innerHTML = $prevLink + " " + $nextLink;
+
+                console.log(json);
+
+            } catch (err) {
+                let message = err.statusText || "Ocurrio un error";
+                $main.innerHTML = ` <p>Error ${err.status}: ${message}</p> `;
+            }
+        }
+
+        d.addEventListener("click", (e) => {
+            //cualquier enlace dentro la clase link
+            if (e.target.matches(".links a")) {
+                e.preventDefault();
+                loadPokemons(e.target.getAttribute("href"));
+            }
+        })
+
+        d.addEventListener("DOMContentLoaded", (e) => {
+            loadPokemons(urlPokeAPI);
+        })
+
+
+    </script>
+
+</body>
+
+</html>

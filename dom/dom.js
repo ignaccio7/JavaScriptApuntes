@@ -234,7 +234,7 @@ console.log($cards.children[3].closest("section")); */
 /* const $figure = document.createElement("figure"),
   $img = document.createElement("img"),
   $figcaption = document.createElement("figcaption"),
-  $figcaptionText = document.createTextNode("CreateTextNode"),
+  $figcaptionText = document.createTextNode("NododeTextoCreado"),
   $cards = document.querySelector(".cards"),
   $figure2 = document.createElement("figure");
 

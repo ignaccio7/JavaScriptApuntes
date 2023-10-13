@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expresiones Regulares</title>
+    <style>
+        body {
+            padding-inline: 50px;
+            font-size: 1.5rem;
+            font-family: monospace;
+        }
+        pre{
+            background: #f5f2f0;
+            overflow: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Expresiones Regulares</h1>
+
+    <p>
+    <pre>
+        Coincidencias Basicas
+            .       - Cualquier Caracter, excepto nueva linea
+            \d      - Cualquier Digitos (0-9)
+            \D      - No es un Digito (0-9)
+            \w      - Caracter de Palabra (a-z, A-Z, 0-9, _)
+            \W      - No es un Caracter de Palabra.
+            \s      - Espacios de cualquier tipo. (espacio, tab, nueva linea)
+            \S      - No es un Espacio, Tab o nueva linea.
+
+            Limites
+            \b      - Limite de Palabra
+            \B      - No es un Limite de Palabra
+            ^       - Inicio de una cadena de texto
+            $       - Final de una cadena de texto
+
+            Cuantificadores:
+            *       - 0 o Más
+            +       - 1 o Más
+            ?       - 0 o Uno
+            {3}     - Numero Exacto
+            {3,4}   - Rango de Numeros (Minimo, Maximo)
+
+            Conjuntos de Caracteres
+            []      - Caracteres dentro de los brackets
+            [^ ]    - Caracteres que NO ESTAN dentro de los brackets
+
+            Grupos
+            ( )     - Grupo
+            |       - Uno u otro
+        </pre>
+    </p>
+
+    <!-- <p><pre>RegExr was created by gskinner.com.
+
+        Edit the Expression & Text to see matches. Roll over matches or the expression for details. PCRE & JavaScript
+        flavors of RegEx are supported. Validate your expression with Tests mode.
+
+        The side bar includes a Cheatsheet, full Reference, and Help. You can also Save & Share with the Community and
+        view patterns you create or favorite in My Patterns.
+
+        Explore results with the Tools below. Replace & List output custom results. Details lists capture groups.
+        Explain describes your expression in plain English.</pre></p> -->
+
+    <p>
+        <pre class="parrafo">
+            Nestor Rojas z	
+            777 555 45 67
+            nestor_@hotmail.com
+            www.nestor.com
+
+            Manuel Alejandro
+            448-234-56-78
+            alejandro@outlook.com
+            https://www.manuel.alejandro.com.mx
+            http://alejandro.com.mx
+
+            Cesar Alan
+            449 345 67 89
+            cesar@hotmail.com
+            cesar.net
+        </pre>
+    </p>
+
+    <p id="cadenaPrueba" style="text-align: center;">Test1abctest2123@test3</p>
+
+    <pre>
+        Guardamos el valor del contenido de nuestra cadena
+        <code>
+            const $cadena = document.getElementById("cadenaPrueba").textContent;
+            //si quisieramos saber si existe la palabra test        
+            let expReg1 = /test/gi;
+        </code>
+    </pre>
+
+    <a href="https://regexr.com/">REGEXR</a>
+
+    <script>
+        const $p = document.querySelector(".parrafo");
+        let cadena = $p.textContent.trim(); //ponemos el trim porque cuando recuperamos el texto del pre del html entonces recupera tambien todos lo saltos de linea que haya tenido y con el trim lo eliminamos
+
+        /*
+            let expReg = /<patron a buscar>/<banderas a utilizar>;                
+                g -> busqueda global osea que buscamos en todo el contenido y no solo la primer coincidencia
+                i -> case insensitive que no tenga en cuenta las mayusculas
+        */
+        let expReg = /nestor/ig;
+
+        //NOTA ----> CUANDO SE UTILIZA LA BUSQUEDA YA SEA CON TEST O EXEC VUELVE A BUSCAR LA COINCIDENCIA DESPUES DEL VALOR DE DONDE LO ENCONTRO
+        console.log(expReg.test(cadena));  //verifica si existe alguna coincidencia en la cadena buscada
+        console.log(expReg.exec(cadena)); //Devuelve una matriz de resultados de las coincidencias que encuentre si no encuentra devuelve null
+
+        //Para poder visualizar todas las coincidencias que encuentre el exec entonces
+        
+        /**
+         * Si quisieramos buscar los numeros con este formato 777 555 45 67 o 448-234-56-78
+                entonces la expresion regular \d hace referencia a los digitos numericos
+                /\d\d\d \d\d\d \d\d \d\d/gi  
+                si queremos añadir los - en la busqueda 
+                /\d\d\d.\d\d\d.\d\d.\d\d/gi   --> el . significa cualquier caracter
+                /\d\d\d\.\d\d\d\.\d\d\.\d\d/gi   --> si quisieramos que busque exactamente el . entonces lo escapamos colocando \.
+
+         * //gi     --> * se coloca luego de un token y le decimos que su criterio de busqueda sera de 0 o + -> + 1 o + -> podemos verlo en la seccion de cuantificadores
+           si quisieramos seleccionar todos los nombres de nuestra pagina y la estructura esta <nombre><espacio><nombre opcional><espacio opacional>     
+            /^\w+\s?\w+\s?$/gim  --> \w cualquier caracter palabra || ^ que busque al inicio $ al final  || ? sea opcional
+
+         * //gi
+            ahora con conjunto de caracteres para el mismo ejemplo del telefono
+            /\d{3}\s\d{3}\s\d{2}\s\d{2}/gm --> \d{3} que busque 3 digitos exactamente 
+            /\d{3}[\s-.]\d{3}[\s-.]\d{2}[\s-.]\d{2}/gm --> [\s-.] que solo acepte un espacio o guion o punto
+
+         * //gi
+            /[a-z]/gm --> busca pura minusculas
+            /[a-z]+/gm --> busca pura minusculas con + que se repita 1 o mas veces
+            /[a-zA-Z]+/gm --> busca minusculas y Mayusculas
+            /[a-zA-Z]+/gm --> busca minusculas y Mayusculas con + que se repita 1 o mas veces
+
+            /[a-zA-Z@._]+/gm --> podemos poner los valores que queramos asi buscara estos @._ mas
+
+            /[0-5]+/gm --> numeros del 0 al 5
+            
+            /[^a-zA-Z]+/gm --> con el ^ es como si negaramos asi buscara todo lo que no este en ese rango
+            
+         
+         * //gi  GRUPOS  permiten encerrar pedazos de la expresion regular y separarlos
+            si quisieramos buscar los numeros de telefono que empiecen en los primeros 3 digitos con 44 y puede ser el 8 o 9
+            /44[89][\s-]\d{3}[\s-]\d{2}[\s-]\d{2}/gm
+            --- con grupos seria (449|448) buscaras 449 o 448
+            /(449|448)[\s-]\d{3}[\s-]\d{2}[\s-]\d{2}/gm
+            acortando un poquito --> ([\s-]\d{2}){2} asi colocamos un cuantificador que se repetira 2 veces
+            /(449|448)[\s-]\d{3}([\s-]\d{2}){2}/gm
+            
+         * //gi
+            para buscar los correos
+            /\w+@\w+\.[a-zA-Z]+/gm   nestor@hotmail.com
+
+            /[a-zA-Z0-9._-]+@\w+\.[a-zA-Z]+/gm   nestor.00_@hotmail.com
+
+            /[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+/gm   nestor.00_@hotmail-hola.com
+
+            /^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$/gm   si queremos que no introduzcan texto antes o despues del correo  como--> aaa nestor.00_@hotmail-hola.com aaa
+         
+         * //gi
+            para las direcciones de internet
+
+            /www\.[a-zA-Z0-9.-]+/gm   --> www.nestor.com  www.manuel.alejandro.com
+
+            /^(https?:\/\/)?(www\.)?[a-zA-Z0-9.-]+\.(com|com\.mx|net)$/gm   --> http://www.nestor.com   (www\.)? para que sea opcional
+          
+         * */
+
+        const $cadena = document.getElementById("cadenaPrueba").textContent;
+
+        console.log($cadena);
+
+        //si quisieramos saber si existe la palabra test      
+        console.log("--------------------TEST");  
+        let expReg1 = /test/gi;
+        console.log(expReg1.test($cadena));
+        
+        expReg1.lastIndex = 0;
+        console.log("--------------------EXEC");  
+        //console.log(expReg1.exec($cadena));
+
+        let arrayCoincidenciasExec = [];
+
+        while ((res = expReg1.exec($cadena)) !== null) {            
+            arrayCoincidenciasExec.push(res);
+        }
+        console.log(arrayCoincidenciasExec);
+
+        /**
+         *match() devuelve un array que contiene las coincidencias encontradas o null si no hay coincidencias.
+        Tipo de Resultado: Si la expresión regular tiene la bandera g (global), match() devolverá todas las coincidencias encontradas. Si no tiene la bandera g, devolverá la primera coincidencia y la información sobre los grupos de captura.
+        Iteración: match() no es adecuado para iterar sobre todas las coincidencias. Devuelve solo la primera coincidencia (o todas las coincidencias si la bandera g está presente), pero no proporciona información detallada sobre los grupos de captura.
+         */
+        
+        console.log("--------------------MATCH");  
+        let arrayCoincidenciasMatch = $cadena.match(expReg1);
+        console.log(arrayCoincidenciasMatch);
+
+        /*
+        *matchAll() es un método introducido en ECMAScript 2018. Se utiliza para obtener todas las coincidencias de una expresión regular en una cadena y devuelve un iterable (no un array). Aquí están las características clave de matchAll():
+        Resultado: matchAll() devuelve un objeto iterable que contiene información detallada sobre todas las coincidencias encontradas, incluyendo grupos de captura.
+        Tipo de Resultado: A diferencia de match(), matchAll() siempre devuelve todas las coincidencias encontradas, incluso si la expresión regular no tiene la bandera g.
+        Iteración: Permite la fácil iteración sobre todas las coincidencias encontradas.
+        */
+        console.log("--------------------MATCHALL");  
+        let arrayCoincidenciasMatchAll = [...$cadena.matchAll(expReg1)];
+        console.log(arrayCoincidenciasMatchAll);
+
+        console.log("CON GRUPOS");
+
+        let cad = "NestorIgnaciorojasGuarachi 772 06 008 nestor_ignacio.rojas@gmail.com 771 50 789 www.rc.com 657 65 621";
+        console.log(cad);
+        console.log("para sacar solo los que comiencen por 7");
+        let expReg2 = /\d{3}[\s-]\d{2}[\s-]\d{3}/gi;
+
+        let arrayCoincidenciasMatchAllGrupos = [...cad.matchAll(expReg2)];
+        
+        console.log(arrayCoincidenciasMatchAllGrupos);
+        
+        let expReg3 = /(7\d{2})[\s-]\d{2}[\s-]\d{3}/gi;
+        let arrayCoincidenciasMatchAllGrupos2 = [...cad.matchAll(expReg3)];
+        console.log(arrayCoincidenciasMatchAllGrupos2);
+
+        
+
+    </script>
+
+</body>
+
+</html>
